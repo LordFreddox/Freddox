@@ -27,12 +27,34 @@ let objToRender = 'eye';
 const loader = new GLTFLoader();
 
 //Load the file
+/*loader.load(
+  `models/${objToRender}/scene.gltf`,
+  function (gltf) {
+    //If the file is loaded, add it to the scene
+    object = gltf.scene;
+    scene.add(object);
+  },
+  function (xhr) {
+    //While it is loading, log the progress
+    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+  },
+  function (error) {
+    //If there is an error, log it
+    console.error(error);
+  }
+);*/
+let mixer;
 loader.load(
   `models/${objToRender}/scene.gltf`,
   function (gltf) {
     //If the file is loaded, add it to the scene
     object = gltf.scene;
     scene.add(object);
+    mixer= new THREE.AnimationMixer(object);
+    const clips = gltf.animations;
+    const clip= THREE.animationsClip.findByName(clips,"Armature|mixamo.com|Layer0_Armature");
+    const action = mixer.clipAction(clip);
+    action.play();
   },
   function (xhr) {
     //While it is loading, log the progress
@@ -68,6 +90,7 @@ if (objToRender === "dino") {
   controls = new OrbitControls(camera, renderer.domElement);
 }
 
+const clock = new THREE.clock();
 //Render the scene
 function animate() {
   requestAnimationFrame(animate);
@@ -79,6 +102,7 @@ function animate() {
     object.rotation.y = -3 + mouseX / window.innerWidth * 3;
     object.rotation.x = -1.2 + mouseY * 2.5 / window.innerHeight;
   }
+  mixer.update(clock.getDelta());
   renderer.render(scene, camera);
 }
 
