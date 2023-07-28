@@ -44,7 +44,7 @@ const loader = new GLTFLoader();
   }
 );*/
 let mixer;
-loader.load(
+/*loader.load(
   `models/${objToRender}/scene.gltf`,
   function (gltf) {
     //If the file is loaded, add it to the scene
@@ -64,7 +64,17 @@ loader.load(
     //If there is an error, log it
     console.error(error);
   }
-);
+);*/
+
+loader.load( 'models/eye/scene.glb', function ( gltf ) {
+
+	scene.add( gltf.scene );
+
+}, undefined, function ( error ) {
+
+	console.error( error );
+
+} );
 
 //Instantiate a new renderer and set its size
 const renderer = new THREE.WebGLRenderer({ alpha: true }); //Alpha: true allows for the transparent background
