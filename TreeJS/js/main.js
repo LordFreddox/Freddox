@@ -27,7 +27,7 @@ let objToRender = 'eye';
 const loader = new GLTFLoader();
 //Load the file
 loader.load(
-  `models/${objToRender}/scene.glb`,
+  `models/${objToRender}/eye.gltf`,
   function (gltf) {
     //If the file is loaded, add it to the scene
     object = gltf.scene;
