@@ -66,7 +66,7 @@ let mixer;
   }
 );*/
 
-loader.load( 'models/eye/scene.glb', function ( gltf ) {
+loader.load( 'models/eye/eye.gltf', function ( gltf ) {
 
 	scene.add( gltf.scene );
 
