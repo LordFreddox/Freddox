@@ -25,10 +25,9 @@ let objToRender = 'eye';
 
 //Instantiate a loader for the .gltf file
 const loader = new GLTFLoader();
-
 //Load the file
-/*loader.load(
-  `models/${objToRender}/scene.gltf`,
+loader.load(
+  `models/${objToRender}/scene.glb`,
   function (gltf) {
     //If the file is loaded, add it to the scene
     object = gltf.scene;
@@ -42,9 +41,9 @@ const loader = new GLTFLoader();
     //If there is an error, log it
     console.error(error);
   }
-);*/
-let mixer;
-/*loader.load(
+);
+/*let mixer;
+loader.load(
   `models/${objToRender}/scene.gltf`,
   function (gltf) {
     //If the file is loaded, add it to the scene
@@ -65,16 +64,6 @@ let mixer;
     console.error(error);
   }
 );*/
-
-loader.load( 'models/eye/eye.gltf', function ( gltf ) {
-
-	scene.add( gltf.scene );
-
-}, undefined, function ( error ) {
-
-	console.error( error );
-
-} );
 
 //Instantiate a new renderer and set its size
 const renderer = new THREE.WebGLRenderer({ alpha: true }); //Alpha: true allows for the transparent background
