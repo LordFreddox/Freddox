@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Three.js Model Animation Loop</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://threejs.org/build/three.min.js"></script>
+    <script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script>
+    <script>
+        // Variables globales
+        let scene, camera, renderer, mixer, clock;
+
+        init();
+        animate();
+
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            // Configurar el mezclador de animaciones
+            mixer = new THREE.AnimationMixer(scene);
+
+            // Agregar luces, cámaras y otros elementos de la escena según sea necesario
+            const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
+            topLight.position.set(500, 500, 500) //top-left-ish
+            topLight.castShadow = true;
+            scene.add(topLight);
+
+            const ambientLight = new THREE.AmbientLight(0x333333, objToRender === "dino" ? 5 : 1);
+            scene.add(ambientLight);
+            
+            clock = new THREE.Clock();
+
+            // Cargar el modelo y la animación
+            const loader = new THREE.GLTFLoader();
+            loader.load('models/eye/scene.gltf', function (gltf) {
+                scene.add(gltf.scene);
+                mixer.clipAction(gltf.animations[0]).play();
+            });
+
+            camera.position.z = 5;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Actualizar el mezclador de animaciones
+            const delta = clock.getDelta();
+            if (mixer) {
+                mixer.update(delta);
+            }
+
+            renderer.render(scene, camera);
+        }
+    </script>
+</body>
+</html>
