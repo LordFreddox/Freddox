@@ -2,6 +2,7 @@ body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
   background-color: gray;
+  background-image: url("banner.png");
 }
 
 header {
@@ -20,5 +21,6 @@ header h1 {
   height: 50vh !important;
   position: absolute;
   top: 0;
-  left: 0;
+  left: 30%;
+  background: rgba(133, 137, 133, 0.5);
 }

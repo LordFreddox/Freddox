@@ -14,7 +14,25 @@
 			<div id="main">
         <main>
           <div id="container3D"></div>
+		  <script>
+			function play() {
+
+			  var audio = document.getElementById("audio");
+			  audio.volume = 0.2;
+			  audio.play();
+			}
+			function ocultarDiv() {
+            var div = document.getElementById("main");
+            div.style.display = "none";
+			audio.pause();
+        }
+		  </script>
+	  
+		  <input type="button" value="PLAY" onclick="play()">
+		  <input type="button" value="Cerrar" onclick="ocultarDiv()">
         </main>
+		<audio id="audio" src="audio/salsa.mp3"></audio>
         <script type="module" src="js/main.js"></script>
 	
-</div></body></html>
+</div>
+</body></html>

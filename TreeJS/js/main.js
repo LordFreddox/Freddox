@@ -10,11 +10,10 @@ let camera, scene, renderer, stats;
 			
 			init();
 			animate();
-
 			function init() {
-
+				
 				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
-				camera.position.set( 100, 300, 400 );
+				camera.position.set(25, 5, 60);
 
 				scene = new THREE.Scene();// Create Scene
 			
@@ -30,7 +29,7 @@ let camera, scene, renderer, stats;
 				loader.load( './models/dancing.fbx', function ( object ) {
 
 					mixer = new THREE.AnimationMixer( object );
-
+					
 					const action = mixer.clipAction( object.animations[ 0 ] );
 					action.play();
 
@@ -44,32 +43,23 @@ let camera, scene, renderer, stats;
 						}
 
 					} );
-					const position = new THREE.Vector3(0, 200, 0);
+					const position = new THREE.Vector3(0, 0, 0);
 					scene.position.copy(position);
 					scene.add( object );
 
 				} );
-				const audioLoader = new THREE.AudioLoader(); // Set the Audio
-				const listener = new THREE.AudioListener();
-				const audio = new THREE.Audio(listener);
-				audio.muted = true;
-				audioLoader.load('./audio/salsa.mp3', function(buffer) {
-					audio.setBuffer(buffer);
-					audio.setLoop(true); 
-					audio.play(); 
-					audio.setVolume(0.2); 
-				  });
-				 
+				
 				renderer = new THREE.WebGLRenderer( { alpha: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				renderer.shadowMap.enabled = true;
 				document.getElementById("container3D").appendChild(renderer.domElement);
-				camera.add(listener);
-				/*const controls = new OrbitControls( camera, renderer.domElement );
+				const controls = new OrbitControls( camera, renderer.domElement );
 				controls.target.set( 0, 0, 0 );
-				controls.update();*/
+				controls.update();
 				window.addEventListener( 'resize', onWindowResize );
+
+			
 			}
 
 			function onWindowResize() {
@@ -89,3 +79,5 @@ let camera, scene, renderer, stats;
 				renderer.render( scene, camera );
 
 			}
+		
+			
